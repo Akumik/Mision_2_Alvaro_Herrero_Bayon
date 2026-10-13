@@ -1,7 +1,7 @@
 import './style.css';
 import { getMonsters } from './api.js';
-import { onlyLarge, simplify, filterBySpecies, countBySpecies } from './logic.js';
-import { renderLoading, renderError, renderPage, renderList } from './render.js';
+import { onlyLarge, simplify, filterBySpecies, countBySpecies, findById } from './logic.js';
+import { renderLoading, renderError, renderPage, renderList, renderDetails, hideDetails } from './render.js';
 
 async function init() {
   renderLoading();
