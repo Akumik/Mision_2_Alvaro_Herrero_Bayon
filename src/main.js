@@ -15,6 +15,22 @@ async function init() {
     document.querySelector('#species').addEventListener('change', (e) => {
       renderList(filterBySpecies(monsters, e.target.value));
     });
+
+    document.querySelector('#list').addEventListener('click', (e) => {
+      const card = e.target.closest('.card');
+      if (!card){
+        return;
+      }
+      const monster = findById(monsters, Number(card.dataset.id));
+      renderDetails(monster);
+    });
+
+    document.querySelector('#details').addEventListener('click', (e) => {
+      if (e.target.id === 'close' || e.target.id === 'details') {
+        hideDetails();
+      }
+    });
+
   } catch (error) {
     renderError(error.message);
   }
