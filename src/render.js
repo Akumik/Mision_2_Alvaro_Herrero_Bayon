@@ -17,7 +17,6 @@ export function renderPage(monsters, counts) {
         ${options}
     </select>
     <ul id="list" class="grid"></ul>
-    <ul id="list" class="grid"></ul>
     <div id="details" class="detail hidden"></div>`;
     renderList(monsters);
 }
@@ -48,10 +47,17 @@ export function renderDetails(monster) {
             ${monster.weaknessStars.map(weakness => `<li>${weakness.element} ${"★".repeat(weakness.stars)}</li>`).join("")}
         </ul>
 
+        <h3>Resistencias</h3>
+        <p>
+            ${monster.resistances.join(", ") || "Ninguna"}
+        </p>
+
         <h3>Zonas</h3>
         <ul>
             ${monster.locations.map(location => `<li>${location}</li>`).join("")}
         </ul>
+
+
     </div>`;
     details.classList.remove("hidden");
 }

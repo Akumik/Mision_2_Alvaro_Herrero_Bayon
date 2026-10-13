@@ -8,7 +8,7 @@ export function simplify(monsters) {
         name: monster.name,
         species: monster.species,
         description: monster.description,
-        element: monster.element,
+        element: monster.elements,
         weaknesses: [...new Set(monster.weaknesses.filter(weakness => weakness.stars >= 3)
             .map(weakness => weakness.element))],
         weaknessStars: bestWeaknessStars(monster.weaknesses),
