@@ -4,21 +4,21 @@ export function onlyLarge(monsters) {
 
 export function simplify(monsters) {
     return monsters.map(monster => {
-        const weaknesses = undefined ?? [];
+        const weaknesses = monster.weaknesses ?? [];
         const resistances = monster.resistances ?? [];
         const locations = monster.locations ?? [];
 
         return {
-            id: monster.id,
-            name: monster.name,
-            species: monster.species,
-            description: monster.description,
-            elements: monster.elements,
-            weaknesses: [...new Set(monster.weaknesses.filter(weakness => weakness.stars >= 3)
+            id: monster.id ?? "",
+            name: monster.name ?? "",
+            species: monster.species ?? "",
+            description: monster.description ?? "",
+            elements: monster.elements ?? [],
+            weaknesses: [...new Set(weaknesses.filter(weakness => weakness.stars >= 3)
                 .map(weakness => weakness.element))],
-            weaknessStars: bestWeaknessStars(monster.weaknesses),
-            resistances: [...new Set(monster.resistances.map(resistance => resistance.element))],
-            locations: monster.locations.map(location => location.name),
+            weaknessStars: bestWeaknessStars(weaknesses),
+            resistances: [...new Set(resistances.map(resistance => resistance.element))],
+            locations: locations.map(location => location.name),
             image: `/monsters/${toFileName(monster.name)}.png`
         };
     });
