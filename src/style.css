@@ -95,6 +95,9 @@ select, button{
     gap:16px;
 }
 
+.empty {
+    color: var(--muted);
+}
 /*
 body { 
     font-family: sans-serif; 

@@ -23,6 +23,10 @@ export function renderPage(monsters, counts) {
 
 export function renderList(monsters) {
     const list = document.querySelector("#list");
+    if(monsters.length === 0){
+        list.innerHTML = `<p class="no-results">No monsters found for the selected species.</p>`;
+        return;
+    }
     list.innerHTML = monsters.map(monster => `
         <li class="card" data-id="${monster.id}">
             <h3>${monster.name}</h3>
@@ -45,7 +49,9 @@ export function renderDetails(monster) {
         <h3>Weaknesses</h3>
         <div class="weak-row">
             <ul>
-                ${monster.weaknessStars.map(weakness => `<li>${weakness.element} ${"★".repeat(weakness.stars)}</li>`).join("")}
+                ${monster.weaknessStars.length ? monster.weaknessStars
+                    .map(weakness => `<li>${weakness.element} ${"★".repeat(weakness.stars)}</li>`)
+                    .join("") : "<li>None</li>"}
             </ul>
             <img src="${monster.image}" alt="${monster.name}" class="detail-img" onerror="this.remove()">
         </div>
@@ -56,7 +62,9 @@ export function renderDetails(monster) {
 
         <h3>Locations</h3>
         <ul>
-            ${monster.locations.map(location => `<li>${location}</li>`).join("")}
+            ${monster.locations.length ? monster.locations
+                .map(location => `<li>${location}</li>`)
+                .join(""): "<li>Unknown</li>"}
         </ul>
 
     </div>`;
