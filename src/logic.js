@@ -8,12 +8,13 @@ export function simplify(monsters) {
         name: monster.name,
         species: monster.species,
         description: monster.description,
-        element: monster.elements,
+        elements: monster.elements,
         weaknesses: [...new Set(monster.weaknesses.filter(weakness => weakness.stars >= 3)
             .map(weakness => weakness.element))],
         weaknessStars: bestWeaknessStars(monster.weaknesses),
         resistances: [...new Set(monster.resistances.map(resistance => resistance.element))],
-        locations: monster.locations.map(location => location.name)
+        locations: monster.locations.map(location => location.name),
+        image: `/monsters/${toFileName(monster.name)}.png`
     }));
 }
 
@@ -44,6 +45,10 @@ export function bestWeaknessStars(weaknesses) {
 
 export function findById(monsters, id) {
     return monsters.find(monster => monster.id === id);
+}
+
+export function toFileName(name){
+    return name.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/^-|-$/g, "");
 }
 
 

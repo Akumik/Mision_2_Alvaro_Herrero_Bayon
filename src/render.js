@@ -1,19 +1,19 @@
 const app = document.querySelector("#app");
 
 export function renderLoading(){
-    app.innerHTML = `<p class="loading">Cargando monstruos...</p>`;
+    app.innerHTML = `<p class="loading">Loading monsters...</p>`;
 }
 
 export function renderError(message){
-    app.innerHTML = `<p class="error">No se han podido cargar los datos: ${message}</p>`;
+    app.innerHTML = `<p class="error">Failed to load data: ${message}</p>`;
 }
 
 export function renderPage(monsters, counts) {
     const options = Object.keys(counts).map(species => `<option value="${species}">${species} (${counts[species]})</option>`).join("");
 
-    app.innerHTML = `<h1>Monstruos de Monster Hunter World</h1>
+    app.innerHTML = `<h1>Monster Hunter World Monsters</h1>
     <select id="species">
-        <option value="">Todas las especies</option>
+        <option value="">All Species</option>
         ${options}
     </select>
     <ul id="list" class="grid"></ul>
@@ -26,8 +26,8 @@ export function renderList(monsters) {
     list.innerHTML = monsters.map(monster => `
         <li class="card" data-id="${monster.id}">
             <h3>${monster.name}</h3>
-            <p>Especie: ${monster.species}</p>
-            <p>Debilidades: ${monster.weaknesses.join(", ")}</p>
+            <p>Species: ${monster.species}</p>
+            <p>Weaknesses: ${monster.weaknesses.join(", ")}</p>
         </li>
     `).join("");
 }
@@ -35,28 +35,29 @@ export function renderList(monsters) {
 export function renderDetails(monster) {
     const details = document.querySelector("#details");
     details.innerHTML = `<div class="detail-box">
-        <button id="close">Cerrar</button>
+        <button id="close">Close</button>
         <h2>${monster.name}</h2>
         <p><em>${monster.species}</em></p>
         <p>${monster.description}</p>
-        <h3>Elementos</h3>
-        <p>${monster.elements.join(", ") || "Ninguno"}</p>
+        <h3>Elements</h3>
+        <p>${monster.elements.join(", ") || "None"}</p>
 
-        <h3>Debilidades</h3>
-        <ul>
-            ${monster.weaknessStars.map(weakness => `<li>${weakness.element} ${"★".repeat(weakness.stars)}</li>`).join("")}
-        </ul>
-
-        <h3>Resistencias</h3>
+        <h3>Weaknesses</h3>
+        <div class="weak-row">
+            <ul>
+                ${monster.weaknessStars.map(weakness => `<li>${weakness.element} ${"★".repeat(weakness.stars)}</li>`).join("")}
+            </ul>
+            <img src="${monster.image}" alt="${monster.name}" class="detail-img" onerror="this.remove()">
+        </div>
+        <h3>Resistances</h3>
         <p>
-            ${monster.resistances.join(", ") || "Ninguna"}
+            ${monster.resistances.join(", ") || "None"}
         </p>
 
-        <h3>Zonas</h3>
+        <h3>Locations</h3>
         <ul>
             ${monster.locations.map(location => `<li>${location}</li>`).join("")}
         </ul>
-
 
     </div>`;
     details.classList.remove("hidden");
