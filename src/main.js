@@ -22,6 +22,9 @@ async function init() {
         return;
       }
       const monster = findById(monsters, Number(card.dataset.id));
+      if(!monster){
+        return;
+      }
       renderDetails(monster);
     });
 

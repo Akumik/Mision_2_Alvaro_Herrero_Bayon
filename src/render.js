@@ -31,12 +31,15 @@ export function renderList(monsters) {
         <li class="card" data-id="${monster.id}">
             <h3>${monster.name}</h3>
             <p>Species: ${monster.species}</p>
-            <p>Weaknesses: ${monster.weaknesses.join(", ")}</p>
+            <p>Weaknesses: ${monster.weaknesses.join(", ") || "None"}</p>
         </li>
     `).join("");
 }
 
 export function renderDetails(monster) {
+    if(!monster){
+        return;
+    }
     const details = document.querySelector("#details");
     details.innerHTML = `<div class="detail-box">
         <button id="close">Close</button>
@@ -53,7 +56,7 @@ export function renderDetails(monster) {
                     .map(weakness => `<li>${weakness.element} ${"★".repeat(weakness.stars)}</li>`)
                     .join("") : "<li>None</li>"}
             </ul>
-            <img src="${monster.image}" alt="${monster.name}" class="detail-img" onerror="this.remove()">
+            ${monster.image ? `<img src="${monster.image}" alt="${monster.name}" class="detail-img" onerror="this.remove()">` : ""}
         </div>
         <h3>Resistances</h3>
         <p>

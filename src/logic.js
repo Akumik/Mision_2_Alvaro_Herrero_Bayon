@@ -19,7 +19,7 @@ export function simplify(monsters) {
             weaknessStars: bestWeaknessStars(weaknesses),
             resistances: [...new Set(resistances.map(resistance => resistance.element))],
             locations: locations.map(location => location.name),
-            image: `/monsters/${toFileName(monster.name)}.png`
+            image: monster.name ? `/monsters/${toFileName(monster.name)}.png` : ""
         };
     });
 }
@@ -53,7 +53,7 @@ export function findById(monsters, id) {
     return monsters.find(monster => monster.id === id);
 }
 
-export function toFileName(name){
+export function toFileName(name = ""){
     return name.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/^-|-$/g, "");
 }
 
